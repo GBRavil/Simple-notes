@@ -1,14 +1,11 @@
 import pickle
 from note import Note
 from view import View
-
-
 class ListOfNotes:
     __notes = []
     __view = View()
     __index = 0
     __index_stack = []
-
     def __init__(self):
         try:
             with open('notes.pkl', 'rb') as file:
@@ -34,7 +31,6 @@ class ListOfNotes:
         self.__notes.append(note)
         self.__index = len(self.__notes)
         self.__view.info_note_msg('add')
-
     def delete_note(self, note):
         self.__index_stack.append(note.get_id())
         self.__notes.remove(note)
@@ -47,7 +43,6 @@ class ListOfNotes:
         self.__view.show_read_all_banner(len(self.__notes))
         for note in self.__notes:
             self.__view.show_note(note)
-
     def manage_note_by_id(self):
         commands =  {1: self.__view.show_note,
                      2: self.__view.edit_note,
@@ -62,7 +57,6 @@ class ListOfNotes:
                 flag = True
         if not flag:
             self.__view.not_found()
-
     def save_notes_to_file(self):
         with open('notes.pkl', 'wb') as file:
             pickle.dump(self.__notes, file,
